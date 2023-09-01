@@ -25,4 +25,9 @@ const Div = styled.div`
     color: white;
     font-size: 1.2rem;
   }
+  @media (min-width: 1012px) {
+    p:hover {
+      text-decoration: underline;
+    }
+  }
 `;

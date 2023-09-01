@@ -26,10 +26,10 @@ const Body = styled.div`
     margin-bottom: 2rem;
   }
 
-  @media (min-width: 994px) {
+  @media (min-width: 1012px) {
     main {
       flex-direction: row;
-      max-width: 99.6rem;
+      max-width: 101.2rem;
       margin: 0;
     }
   }

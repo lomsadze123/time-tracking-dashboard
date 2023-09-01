@@ -1,8 +1,25 @@
 import { styled } from "styled-components";
 import Jeremy from "../assets/jeremy.png";
 import { Subjects } from "./Subjects";
+import { useState } from "react";
+import { Timeframes } from "./Subjects";
 
 export const SwitchButtons = () => {
+  const time = ["Daily", "Weekly", "Monthly"];
+  const [button, setButton] = useState(1);
+  const [titles, setTitle] = useState<keyof Timeframes>("weekly");
+
+  const handleClick = (
+    index: number,
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
+    if (button !== index) {
+      setButton(index);
+    }
+    e.currentTarget.textContent &&
+      setTitle(e.currentTarget.textContent.toLowerCase() as keyof Timeframes);
+  };
+
   return (
     <main>
       <Div>
@@ -14,12 +31,20 @@ export const SwitchButtons = () => {
           </article>
         </div>
         <article>
-          <button>Daily</button>
-          <button>Weekly</button>
-          <button>Monthly</button>
+          {time.map((time, index) => (
+            <Button
+              color={index === button}
+              onClick={(e) => {
+                handleClick(index, e);
+              }}
+              key={time}
+            >
+              {time}
+            </Button>
+          ))}
         </article>
       </Div>
-      <Subjects />
+      <Subjects titles={titles} />
     </main>
   );
 };
@@ -64,12 +89,11 @@ const Div = styled.div`
   button {
     background-color: transparent;
     border: 0;
-    color: hsl(235, 45%, 61%);
     font-size: 1.935rem;
     opacity: 0.8;
   }
 
-  @media (min-width: 994px) {
+  @media (min-width: 1012px) {
     img {
       max-width: 8rem;
     }
@@ -94,6 +118,12 @@ const Div = styled.div`
     }
     button {
       font-size: 1.7rem;
+      cursor: pointer;
     }
   }
+`;
+
+const Button = styled.button<{ color: boolean }>`
+  color: ${(props) => (props.color ? "white" : "hsl(235, 45%, 61%)")};
+  font-weight: ${(props) => (props.color ? 700 : 300)};
 `;
